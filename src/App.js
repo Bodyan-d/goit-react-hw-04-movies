@@ -1,25 +1,52 @@
-import logo from './logo.svg';
+import { lazy, Suspense, useState, useEffect } from 'react';
+import api from '../src/sourse/movies-api';
+import { BoxesLoader } from 'react-awesome-loaders';
+import { Switch, Route, Redirect } from 'react-router-dom';
+
 import './App.css';
 
+const HomePage = lazy(() => import('./components/HomePage'));
+const MoviesPage = lazy(() => import('./components/MoviesPage'));
+
+console.log(HomePage);
+console.log(MoviesPage);
+
 function App() {
+  const [muviesToday, setMuviesToday] = useState(null);
+
+  useEffect(() => {
+    api.FetchPopularMuvies().then(muviesToday => {
+      console.log(muviesToday.results);
+      setMuviesToday(muviesToday.results);
+    });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="container">
+        <Suspense fallback={<BoxesLoader />}>
+          <Switch>
+            <Route path="/" exact>
+              {muviesToday && <HomePage muviesToday={muviesToday} />}
+            </Route>
+
+            <Route path="/movies">
+              <MoviesPage />
+            </Route>
+
+            <Redirect to="/" />
+          </Switch>
+        </Suspense>
+      </div>
+    </>
   );
 }
+
+// <BoxesLoader
+//   boxColor={'#6366F1'}
+//   style={{ marginBottom: '20px' }}
+//   desktopSize={'128px'}
+//   mobileSize={'80px'}
+// />;
 
 export default App;
