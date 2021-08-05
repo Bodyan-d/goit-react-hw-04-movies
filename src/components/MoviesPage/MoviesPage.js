@@ -10,7 +10,7 @@ export default function MoviePage() {
   const savedMuvie = new URLSearchParams(location.search).get('query');
 
   useEffect(() => {
-    if (location.search !== '') {
+    if (location.search !== ' ') {
       return;
     }
 

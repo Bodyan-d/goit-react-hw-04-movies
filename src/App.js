@@ -1,6 +1,7 @@
 import { lazy, Suspense, useState, useEffect } from 'react';
 import api from '../src/sourse/movies-api';
 import { BoxesLoader } from 'react-awesome-loaders';
+import Header from './components/Header';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import './App.css';
@@ -8,15 +9,11 @@ import './App.css';
 const HomePage = lazy(() => import('./components/HomePage'));
 const MoviesPage = lazy(() => import('./components/MoviesPage'));
 
-console.log(HomePage);
-console.log(MoviesPage);
-
 function App() {
   const [muviesToday, setMuviesToday] = useState(null);
 
   useEffect(() => {
     api.FetchPopularMuvies().then(muviesToday => {
-      console.log(muviesToday.results);
       setMuviesToday(muviesToday.results);
     });
   }, []);
@@ -24,16 +21,17 @@ function App() {
   return (
     <>
       <div className="container">
+        <Route path="/">
+          <Header />
+        </Route>
         <Suspense fallback={<BoxesLoader />}>
           <Switch>
             <Route path="/" exact>
               {muviesToday && <HomePage muviesToday={muviesToday} />}
             </Route>
-
             <Route path="/movies">
               <MoviesPage />
             </Route>
-
             <Redirect to="/" />
           </Switch>
         </Suspense>
