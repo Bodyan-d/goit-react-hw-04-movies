@@ -1,17 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import api from '../../sourse/movies-api';
 // import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
-export default function Reviews({ movieId }) {
+export default function Reviews() {
   const [reviews, setReviews] = useState(null);
-  let isFirstRender = true;
+  const { movieId } = useParams();
 
   useEffect(() => {
-    if (!isFirstRender) {
-      isFirstRender = !isFirstRender;
-      return;
-    }
-
     api.FetchMuvieReviews(movieId).then(reviews => {
       setReviews(reviews.results);
     });

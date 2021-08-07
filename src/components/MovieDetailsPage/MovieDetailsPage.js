@@ -64,11 +64,11 @@ export default function MovieDetailsPage(props) {
       </ul>
       <Suspense>
         <Switch>
-          <Route path={`${match.url}/cast`} exact>
-            <Cast movieId={movie.id} />
+          <Route path={`${match.path}/cast`} exact>
+            <Cast />
           </Route>
-          <Route path={`${match.url}/reviews`} exact>
-            <Reviews movieId={movie.id} />
+          <Route path={`${match.path}/reviews`} exact>
+            <Reviews />
           </Route>
         </Switch>
       </Suspense>

@@ -1,34 +1,25 @@
-import { useState, useEffect, useRef } from 'react';
-import { useHistory, useRouteMatch, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import api from '../../sourse/movies-api';
-// import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import styles from './Cast.module.css';
 
-export default function Cast({ movieId }) {
+export default function Cast(props) {
   const [casters, setCasters] = useState([]);
-  const match = useRouteMatch();
-  const savedId = useRef(match.url.substr(8, 6));
-  const history = useHistory();
-  const location = useLocation();
-
-  let isFirstRender = true;
+  const { movieId } = useParams();
 
   useEffect(() => {
-    if (!isFirstRender) {
-      isFirstRender = !isFirstRender;
-      return;
-    }
-
-    api.FetchMuvieCast(savedId.current).then(caster => {
+    api.FetchMuvieCast(movieId).then(caster => {
       setCasters(caster.cast);
     });
   }, [movieId]);
 
   return (
-    <ul>
+    <ul className={styles.casters}>
       {casters &&
         casters.map(cast => (
-          <li key={cast.name}>
+          <li key={cast.name} className={styles.casterItem}>
             <img
+              className={styles.profileImage}
               src={`https://image.tmdb.org/t/p/w300/${cast.profile_path}`}
               alt="caster"
             />

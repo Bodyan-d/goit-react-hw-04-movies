@@ -1,0 +1,20 @@
+.casters {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  list-style: none;
+}
+
+.casterItem {
+  margin-right: 20px;
+
+  padding: 5px;
+  box-shadow: 0px 6px 8px 4px rgba(255, 0, 203, 0.2);
+}
+
+.casterItem:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.profileImage {
+  width: 150px;
+}
