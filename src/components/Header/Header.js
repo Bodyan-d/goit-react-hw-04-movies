@@ -1,12 +1,12 @@
 import React from 'react';
-import { NavLink, useHistory, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styles from './Header.module.css';
 
 export default function Header(props) {
   //   const location = useLocation();
 
   return (
-    <div>
+    <nav className={styles.navigation}>
       <NavLink
         exact
         to="/"
@@ -17,13 +17,12 @@ export default function Header(props) {
       </NavLink>
 
       <NavLink
-        exact
         to="/movies"
         className={styles.headerLink}
         activeClassName={styles.active}
       >
         Movies
       </NavLink>
-    </div>
+    </nav>
   );
 }

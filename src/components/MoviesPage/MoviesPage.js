@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import api from '../../sourse/movies-api';
 
 export default function MoviePage() {
@@ -7,14 +7,19 @@ export default function MoviePage() {
   const [muviesOnSearch, setMuviesOnSearch] = useState(null);
   const history = useHistory();
   const location = useLocation();
-  const savedMuvie = new URLSearchParams(location.search).get('query');
+  const match = useRouteMatch();
+
+  const savedMuvie = new URLSearchParams(location.search.substring(1)).get(
+    'query',
+  );
 
   useEffect(() => {
-    if (location.search !== ' ') {
+    if (savedMuvie === null) {
       return;
     }
 
     setVelue(savedMuvie);
+
     api.FetchMuviesKeyWord(savedMuvie).then(muvieOnSearch => {
       setMuviesOnSearch(muvieOnSearch.results);
     });
@@ -51,7 +56,7 @@ export default function MoviePage() {
         {muviesOnSearch &&
           muviesOnSearch.map(muvie => (
             <li key={muvie.id}>
-              <Link to={''}>{muvie.title}</Link>
+              <Link to={`${match.url}/${muvie.id}`}>{muvie.title}</Link>
             </li>
           ))}
       </ul>

@@ -1,0 +1,27 @@
+.movie {
+  display: flex;
+  margin: 0 5px;
+}
+
+.poster {
+  width: 250px;
+  background-color: blueviolet;
+}
+
+.descrption {
+  margin-left: 20px;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  margin: 10px;
+  background-color: blueviolet;
+  padding: 5px;
+}
+
+.buttonTitle {
+  margin-left: 5px;
+}

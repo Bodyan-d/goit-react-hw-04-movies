@@ -1,7 +1,21 @@
-.active {
-  color: tomato;
+.navigation {
+  padding: 10px 0;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 6px 4px -4px rgba(0, 0, 0, 0.2);
 }
 
 .headerLink {
-  color: b;
+  font-size: large;
+  padding: 5px;
+  color: darkslategrey;
+  outline: none;
+  text-decoration: none;
+}
+
+.active {
+  color: tomato;
 }

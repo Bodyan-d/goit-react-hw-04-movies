@@ -36,7 +36,7 @@ function FetchMuvieFullInfo(movieID) {
   });
 }
 
-function FetchMuvieCradits(movieID) {
+function FetchMuvieCast(movieID) {
   return fetch(
     `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${MUVIES_KEY}`,
   ).then(res => {
@@ -64,7 +64,7 @@ const api = {
   FetchPopularMuvies,
   FetchMuviesKeyWord,
   FetchMuvieFullInfo,
-  FetchMuvieCradits,
+  FetchMuvieCast,
   FetchMuvieReviews,
 };
 

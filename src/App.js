@@ -5,6 +5,7 @@ import Header from './components/Header';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import './App.css';
+import MovieDetailsPage from './components/MovieDetailsPage/MovieDetailsPage';
 
 const HomePage = lazy(() => import('./components/HomePage'));
 const MoviesPage = lazy(() => import('./components/MoviesPage'));
@@ -29,9 +30,15 @@ function App() {
             <Route path="/" exact>
               {muviesToday && <HomePage muviesToday={muviesToday} />}
             </Route>
+
+            <Route path="/movies/:movieId">
+              <MovieDetailsPage />
+            </Route>
+
             <Route path="/movies">
               <MoviesPage />
             </Route>
+
             <Redirect to="/" />
           </Switch>
         </Suspense>
