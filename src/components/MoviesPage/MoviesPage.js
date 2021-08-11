@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import slugify from 'slugify';
 import { Link, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import api from '../../sourse/movies-api';
 
@@ -54,9 +55,18 @@ export default function MoviePage() {
       </form>
       <ul>
         {muviesOnSearch &&
-          muviesOnSearch.map(muvie => (
-            <li key={muvie.id}>
-              <Link to={`${match.url}/${muvie.id}`}>{muvie.title}</Link>
+          muviesOnSearch.map(item => (
+            <li key={item.id}>
+              <Link
+                to={{
+                  pathname: `movies/${slugify(`${item.id}`, {
+                    lower: true,
+                  })}`,
+                  state: { from: location, value: value },
+                }}
+              >
+                {item.title}
+              </Link>
             </li>
           ))}
       </ul>

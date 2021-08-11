@@ -1,9 +1,11 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
+import { Link } from 'react-router-dom';
 import { ImArrowLeft } from 'react-icons/im';
 // import AdditionalInfo from '../Cast';
 import {
   useParams,
   useHistory,
+  useLocation,
   useRouteMatch,
   NavLink,
   Route,
@@ -18,9 +20,12 @@ const Reviews = lazy(() => import('../Reviews'));
 export default function MovieDetailsPage(props) {
   const [movie, setMovie] = useState({});
   const [genresMovie, setgenresMovie] = useState([]);
+  const location = useLocation();
   const match = useRouteMatch();
   const history = useHistory();
   const { movieId } = useParams();
+
+  console.log(location);
 
   useEffect(() => {
     api.FetchMuvieFullInfo(movieId).then(muvieOnSearch => {
@@ -29,11 +34,19 @@ export default function MovieDetailsPage(props) {
     });
   }, [movieId]);
 
+  const goBack = () => {
+    if (location.state) {
+      return '/movies';
+    } else {
+      return '/';
+    }
+  };
+
   return (
     <>
-      <button className={styles.button} onClick={history.goBack}>
+      <Link className={styles.button} to={goBack()}>
         <ImArrowLeft /> <span className={styles.buttonTitle}>Go back</span>
-      </button>
+      </Link>
       <div className={styles.movie}>
         <img
           className={styles.poster}
