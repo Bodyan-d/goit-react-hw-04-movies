@@ -1,5 +1,4 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { Link } from 'react-router-dom';
 import { ImArrowLeft } from 'react-icons/im';
 // import AdditionalInfo from '../Cast';
 import {
@@ -20,12 +19,12 @@ const Reviews = lazy(() => import('../Reviews'));
 export default function MovieDetailsPage(props) {
   const [movie, setMovie] = useState({});
   const [genresMovie, setgenresMovie] = useState([]);
+  const history = useHistory();
   const location = useLocation();
   const match = useRouteMatch();
-  const history = useHistory();
   const { movieId } = useParams();
 
-  console.log(location);
+  const prevLocation = location?.state?.from ?? '/';
 
   useEffect(() => {
     api.FetchMuvieFullInfo(movieId).then(muvieOnSearch => {
@@ -35,18 +34,14 @@ export default function MovieDetailsPage(props) {
   }, [movieId]);
 
   const goBack = () => {
-    if (location.state) {
-      return '/movies';
-    } else {
-      return '/';
-    }
+    history.push(prevLocation);
   };
 
   return (
     <>
-      <Link className={styles.button} to={goBack()}>
+      <div className={styles.button} onClick={() => goBack()}>
         <ImArrowLeft /> <span className={styles.buttonTitle}>Go back</span>
-      </Link>
+      </div>
       <div className={styles.movie}>
         <img
           className={styles.poster}
@@ -69,10 +64,24 @@ export default function MovieDetailsPage(props) {
       <h6>Additional information</h6>
       <ul>
         <li>
-          <NavLink to={`${match.url}/cast`}>Cast</NavLink>
+          <NavLink
+            to={{
+              pathname: `${match.url}/cast`,
+              state: { from: prevLocation },
+            }}
+          >
+            Cast
+          </NavLink>
         </li>
         <li>
-          <NavLink to={`${match.url}/reviews`}>Reviews</NavLink>
+          <NavLink
+            to={{
+              pathname: `${match.url}/reviews`,
+              state: { from: prevLocation },
+            }}
+          >
+            Reviews
+          </NavLink>
         </li>
       </ul>
       <Suspense>

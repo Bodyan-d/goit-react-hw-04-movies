@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import slugify from 'slugify';
-import { Link, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import api from '../../sourse/movies-api';
 
 export default function MoviePage() {
@@ -8,7 +8,6 @@ export default function MoviePage() {
   const [muviesOnSearch, setMuviesOnSearch] = useState(null);
   const history = useHistory();
   const location = useLocation();
-  const match = useRouteMatch();
 
   const savedMuvie = new URLSearchParams(location.search.substring(1)).get(
     'query',
