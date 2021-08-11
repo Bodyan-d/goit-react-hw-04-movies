@@ -59,9 +59,7 @@ export default function MoviePage() {
             <li key={item.id}>
               <Link
                 to={{
-                  pathname: `movies/${slugify(`${item.id}`, {
-                    lower: true,
-                  })}`,
+                  pathname: `movies/${item.id}`,
                   state: { from: location, value: value },
                 }}
               >
